@@ -1,0 +1,14 @@
+@import 'variables';
+@import 'component/paragraph';
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+// Layout & components
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/buttons";
