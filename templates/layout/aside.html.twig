@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <aside>
+            <div class="col-3">
+                {% block aside %}{% endblock %}
+            </div>
+        </aside>
+
+        <div class="col-9">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

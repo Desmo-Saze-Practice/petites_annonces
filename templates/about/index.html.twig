@@ -1,0 +1,15 @@
+{% extends "layout/aside.html.twig" %}
+
+{% block content %}
+    <h1>About Twig</h1>
+
+    {{ title|upper }} {# deux accolades permettent d'afficher #}
+    {{ max(1, 10, 3, 34) }}
+    {# { dump(data) } #} {# commentaire #}
+
+    {# les instruction c'est {% instruction %} #}
+
+    {% for d in data %} {# d est une variable arbitraire data viens de notre controller #}
+        <p>{{ d }} </p>
+    {% endfor %}
+{% endblock %}

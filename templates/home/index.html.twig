@@ -1,1 +1,13 @@
-<h1>Je suis la home !</h1>
+{% extends "layout/full_width.html.twig" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    <p>{{ content }}</p>
+    <span>Date du jour : {{ date|date("d/m/Y") }}</span>
+    <ul>
+        {% for d in data %}
+            <li>{{ d }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
