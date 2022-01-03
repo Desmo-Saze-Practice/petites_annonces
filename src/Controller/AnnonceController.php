@@ -35,6 +35,11 @@ class AnnonceController extends AbstractController
     public function annonceById(int $id)
     {
         $annonce = $this->getDoctrine()->getRepository(Annonce::class)->find($id);
+
+        if(!$annonce) {
+            throw $this->createNotFoundException();
+        }
+
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce
         ]);
