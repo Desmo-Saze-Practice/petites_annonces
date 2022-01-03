@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +15,15 @@ class AnnonceController extends AbstractController
      */
     public function index(): Response
     {
+        // on récupère le service Doctrine
+        $doctrine = $this->getDoctrine();
+        // on récupère le "respository" Annonce, qui permet de récupérer des données en DB
+        $annonceRepository = $doctrine->getRepository(Annonce::class); // = 'App\Entity\Annonce'
+        // on récupère toutes les annonces grâce au repository
+        $annonces = $annonceRepository->findAll();
+        
         return $this->render('annonce/index.html.twig', [
-            'controller_name' => 'AnnonceController',
+            'annonces' => $annonces,
         ]);
     }
 
@@ -26,6 +35,41 @@ class AnnonceController extends AbstractController
     public function annonceById(int $id)
     {
         die('détail d\'une annonce avec id ' . $id);
+    }
+
+    /**
+     * @Route("/annonce/new")
+     */
+    public function new()
+    {
+        // ne pas oublier use App\Entity\Annonce; en haut du fichier
+        $annonce = new Annonce();
+        $annonce
+            ->setTitle('Ma collection de canard vivant en NFT')
+            ->setDescription('Vends car j\'ai envie de spéculer')
+            ->setStatus(Annonce::STATUS_PERFECT)
+            ->setPrice(100)
+            ->setIsSold(false)
+            // ne pas oublier use DateTimeImmutable ou faire new \DateTimeImmutable()
+            ->setCreatedAt(new DateTimeImmutable());
+        ;
+
+        dump($annonce);
+
+        // on demande le service Doctrine grâce à extend AbstractController
+        $doctrine = $this->getDoctrine();
+        // on demande à Doctrine le Manager d'Entité
+        // c'est grâce à lui qu'on peut lancer des requêtes SQL
+        $entityManager = $doctrine->getManager();
+        // on prépare, on construit la requête en "persistant" une entité
+        // c'est que pour les données qui ne sont pas en base de donnée
+        $entityManager->persist($annonce);
+        // on envoie (en SQL c'est un commit) tous ce qui est persisté en base de données
+        $entityManager->flush();
+
+        dump($annonce);
+        
+        die('nouvelle annonce');
     }
 
     /**

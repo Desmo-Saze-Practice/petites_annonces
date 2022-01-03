@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Annonce
 {
+    public const STATUS_VERY_BAD    = 0;
+    public const STATUS_BAD         = 1;
+    public const STATUS_GOOD        = 2;
+    public const STATUS_VERY_GOOD   = 3;
+    public const STATUS_PERFECT     = 4;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -61,7 +67,7 @@ class Annonce
     {
         $this->title = $title;
 
-        return $this;
+        return $this; // fluent
     }
 
     public function getDescription(): ?string
