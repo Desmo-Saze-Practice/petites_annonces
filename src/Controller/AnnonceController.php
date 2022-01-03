@@ -34,7 +34,10 @@ class AnnonceController extends AbstractController
      */
     public function annonceById(int $id)
     {
-        die('détail d\'une annonce avec id ' . $id);
+        $annonce = $this->getDoctrine()->getRepository(Annonce::class)->find($id);
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce
+        ]);
     }
 
     /**
