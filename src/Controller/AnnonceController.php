@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Repository\AnnonceRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,17 +14,17 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce", name="annonce")
      */
-    public function index(): Response
+    public function index(AnnonceRepository $annonceRepository): Response
     {
         // on récupère le service Doctrine
-        $doctrine = $this->getDoctrine();
+        //$doctrine = $this->getDoctrine();
         // on récupère le "respository" Annonce, qui permet de récupérer des données en DB
-        $annonceRepository = $doctrine->getRepository(Annonce::class); // = 'App\Entity\Annonce'
+        //$annonceRepository = $doctrine->getRepository(Annonce::class); // = 'App\Entity\Annonce'
         // on récupère toutes les annonces grâce au repository
-        $annonces = $annonceRepository->findAll();
+        //$annonces = $annonceRepository->findAll();
         
         return $this->render('annonce/index.html.twig', [
-            'annonces' => $annonces,
+            'annonces' => $annonceRepository->findAll(),
         ]);
     }
 
@@ -32,13 +33,13 @@ class AnnonceController extends AbstractController
      *
      * @return void
      */
-    public function annonceById(int $id)
+    public function annonceById(Annonce $annonce)
     {
-        $annonce = $this->getDoctrine()->getRepository(Annonce::class)->find($id);
+        /*$annonce = $this->getDoctrine()->getRepository(Annonce::class)->find($id);
 
         if(!$annonce) {
             throw $this->createNotFoundException();
-        }
+        }*/
 
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce
