@@ -1,0 +1,6 @@
+annonce:
+  status_0: 'Très mauvais état'
+  status_1: 'Mauvais état'
+  status_2: 'Bon état'
+  status_3: 'Très bon état'
+  status_4: 'Parfait état'
