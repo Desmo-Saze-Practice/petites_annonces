@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
+ * @UniqueEntity("slug")
  */
 class Annonce
 {
@@ -52,6 +54,11 @@ class Annonce
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     */
+    private $slug;
 
     public function getId(): ?int
     {
@@ -126,6 +133,18 @@ class Annonce
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
