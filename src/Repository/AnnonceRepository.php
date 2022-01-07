@@ -19,19 +19,32 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
-    public function findBetterThan(int $than)
+    public function findBySearch(array $params)
     {
         /*$qb = $this->_em->createQueryBuilder()->select('a.title')->from(Annonce::class, 'a');
 
         dd($qb->getQuery()->getResult());*/
 
         // on créer QueryBuilder qui va nous permettre d'écrire une requête
-        return $this->createQueryBuilder('a')
-            ->where('a.status >= :status')
-            ->setParameter('status', $than)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('a');
+
+        if (isset($params['betterThan'])) {
+            $qb
+                ->andWhere('a.status >= :status')
+                ->setParameter('status', $params['betterThan'])
+            ;
+        }
+
+        if (isset($params['newerThan'])) {
+            $qb
+                ->andWhere('a.createdAt >= :createdAt')
+                ->setParameter('createdAt', $params['newerThan'])
+            ;
+        }
+
+        $qb->addOrderBy('a.createdAt', 'DESC');
+
+        return $qb->getQuery()->getResult();
     }
 
     // /**

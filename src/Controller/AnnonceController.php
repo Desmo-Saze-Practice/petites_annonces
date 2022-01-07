@@ -85,15 +85,26 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce/better-than", methods={"GET"})
+     * @Route("/annonce/search", methods={"GET"})
      */
-    public function betterThan(Request $request)
+    public function search(Request $request)
     {
         /**
          * @var AnnonceRepository $repository
          */
         $repository = $this->getDoctrine()->getRepository(Annonce::class);
-        $annonces = $repository->findBetterThan($request->query->getInt('than'));
+
+        $params = [
+            'betterThan' => $request->query->getInt('better-than'),
+            'newerThan' => $request->query->get('newer-than')
+        ];
+
+        $annonces = $repository->findBySearch($params);
+        
+        if (!$annonces) {
+            throw $this->createNotFoundException();
+        }
+
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonces
         ]);
