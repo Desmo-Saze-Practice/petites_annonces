@@ -1,14 +1,15 @@
 {% extends "layout/full_width.html.twig" %}
 
-{% block content %}
-    <h1>{{ title }}</h1>
-
-    <a href="#" class="btn btn-primary">Primary</a>
-    <p>{{ content }}</p>
-    <span>Date du jour : {{ date|date("d/m/Y") }}</span>
-    <ul>
-        {% for d in data %}
-            <li>{{ d }}</li>
+{% block content %}   
+    <div class="row">
+        {% for annonce in annonces %}
+            <div class="card col">
+                <div class="card-body">
+                    <h5 class="card-title">{{ annonce.title }}</h5>
+                    <p class="card-text">{{ annonce.description }}</p>
+                    <a href="#" class="btn btn-primary">Détail</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
