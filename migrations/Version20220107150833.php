@@ -21,6 +21,7 @@ final class Version20220107150833 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE annonce ADD slug VARCHAR(255) DEFAULT NULL');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_F65593E5989D9B62 ON annonce (slug)');
     }
 
     public function down(Schema $schema): void
