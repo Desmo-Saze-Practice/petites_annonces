@@ -6,6 +6,7 @@ use App\Entity\Annonce;
 use App\Repository\AnnonceRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -81,6 +82,22 @@ class AnnonceController extends AbstractController
         dump($annonce);
         
         die('nouvelle annonce');
+    }
+
+    /**
+     * @Route("/annonce/better-than", methods={"GET"})
+     */
+    public function betterThan(Request $request)
+    {
+        dd($request->query->get('than')); // $_GET['than']
+        /**
+         * @var AnnonceRepository $repository
+         */
+        $repository = $this->getDoctrine()->getRepository(Annonce::class);
+        $annonces = $repository->findGoodAndBetter();
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces
+        ]);
     }
 
     /**

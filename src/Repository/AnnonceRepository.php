@@ -19,6 +19,21 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
+    public function findBetterThan()
+    {
+        /*$qb = $this->_em->createQueryBuilder()->select('a.title')->from(Annonce::class, 'a');
+
+        dd($qb->getQuery()->getResult());*/
+
+        // on créer QueryBuilder qui va nous permettre d'écrire une requête
+        return $this->createQueryBuilder('a')
+            ->where('a.status > :status')
+            ->setParameter('status', Annonce::STATUS_GOOD)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Annonce[] Returns an array of Annonce objects
     //  */
