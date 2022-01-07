@@ -19,7 +19,7 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
-    public function findBetterThan()
+    public function findBetterThan(int $than)
     {
         /*$qb = $this->_em->createQueryBuilder()->select('a.title')->from(Annonce::class, 'a');
 
@@ -27,8 +27,8 @@ class AnnonceRepository extends ServiceEntityRepository
 
         // on créer QueryBuilder qui va nous permettre d'écrire une requête
         return $this->createQueryBuilder('a')
-            ->where('a.status > :status')
-            ->setParameter('status', Annonce::STATUS_GOOD)
+            ->where('a.status >= :status')
+            ->setParameter('status', $than)
             ->getQuery()
             ->getResult()
         ;
