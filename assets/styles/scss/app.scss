@@ -1,10 +1,12 @@
 @import 'variables';
 
 @import "~bootstrap/scss/bootstrap-utilities";
+@import "~bootstrap/scss/containers";
 
 // Layout & components
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid";
 
 @import "~bootstrap/scss/card";
 @import "~bootstrap/scss/buttons";
