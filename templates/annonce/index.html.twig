@@ -19,10 +19,10 @@
                 <td>{{ annonce.createdAt|date('d/m/Y') }}</td>
                 <td>{{ annonce.price }}</td>
                 <td>
-                    {{ annonce.isSold ? 'Not available' : 'Available' }}
+                    {{ annonce.isSold ? 'message.not_available'|trans({}, 'annonce') : 'message.available'|trans({}, 'annonce') }}
                 </td>
                 <td>
-                    {{ ('annonce.status_' ~ annonce.status)|trans({}, 'annonce') }}
+                    {{ ('status.' ~ annonce.status)|trans({}, 'annonce') }}
                 </td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_annonce_annoncebyslug', {'slug': annonce.slug}) }}">{{ 'action.show'|trans }}</a>

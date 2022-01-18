@@ -1,12 +1,11 @@
-annonce:
-  status_0: 'Très mauvais état'
-  status_1: 'Mauvais état'
-  status_2: 'Bon état'
-  status_3: 'Très bon état'
-  status_4: 'Parfait état'
+status:
+  0: Très mauvais état
+  1: Mauvais état
+  2: Bon état
+  3: Très bon état
+  4: Parfait état
 message:
-  created: 'Annonce bien créée'
-  deleted: 'Annonce bien supprimée'
-button:
-  edit: 'Éditer'
-  create: 'Créer'
+  created: Annonce bien créée
+  deleted: Annonce bien supprimée
+  available: Disponible
+  not_available: Non disponible

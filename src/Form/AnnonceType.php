@@ -24,11 +24,11 @@ class AnnonceType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'annonce.status_0' => Annonce::STATUS_VERY_BAD,
-                    'annonce.status_1' => Annonce::STATUS_BAD,
-                    'annonce.status_2' => Annonce::STATUS_GOOD,
-                    'annonce.status_3' => Annonce::STATUS_VERY_GOOD,
-                    'annonce.status_4' => Annonce::STATUS_PERFECT
+                    'status.0' => Annonce::STATUS_VERY_BAD,
+                    'status.1' => Annonce::STATUS_BAD,
+                    'status.2' => Annonce::STATUS_GOOD,
+                    'status.3' => Annonce::STATUS_VERY_GOOD,
+                    'status.4' => Annonce::STATUS_PERFECT
                 ]
             ])
         ;

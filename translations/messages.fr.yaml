@@ -1,4 +1,4 @@
 action:
-  show: 'Voir'
-  edit: 'Éditer'
-  delete: 'Supprimer'
+  show: Voir
+  edit: Éditer
+  delete: Supprimer
