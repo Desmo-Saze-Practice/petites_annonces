@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ annonce.title }}</h5>
                     <p class="card-text">{{ annonce.description }}</p>
-                    <a href="{{ path('app_annonce_annoncebyid', {id: annonce.id}) }}" class="btn btn-primary">Détail</a>
+                    <a href="{{ path('app_annonce_annoncebyslug', {slug: annonce.slug}) }}" class="btn btn-primary">Détail</a>
                 </div>
             </div>
         {% endfor %}
