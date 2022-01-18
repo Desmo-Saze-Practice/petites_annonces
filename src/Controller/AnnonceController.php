@@ -66,7 +66,7 @@ class AnnonceController extends AbstractController
         // écoute la requête courante
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) { // quand le formulaire est envoyé
+        if ($form->isSubmitted() && $form->isValid()) { // quand le formulaire est envoyé et qu'il est valide
             // $em = $this->getDoctrine()->getManager(); sans l'$annonceRepository
             $em->persist($annonce);            
             $em->flush();
