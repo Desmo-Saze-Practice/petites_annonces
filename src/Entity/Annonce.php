@@ -28,6 +28,17 @@ class Annonce
     {
         $this->slug = strtolower((new AsciiSlugger())->slug($this->title));
         $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = $this->createdAt;
+        $this->isSold = false;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate(): void
+    {
+        $this->slug = strtolower((new AsciiSlugger())->slug($this->title));
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     /**
@@ -71,6 +82,11 @@ class Annonce
      * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -157,6 +173,18 @@ class Annonce
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

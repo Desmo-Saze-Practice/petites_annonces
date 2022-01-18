@@ -152,4 +152,22 @@ class AnnonceController extends AbstractController
     {
         die('annonce avec mois: ' . $month . ' et année ' . $year);
     }
+
+    /**
+     * @Route("/annonce/edit/{id<\d+>}")
+     */
+    public function edit(Annonce $annonce, Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted()) {
+            $em->flush();
+        }
+
+        return $this->render('annonce/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

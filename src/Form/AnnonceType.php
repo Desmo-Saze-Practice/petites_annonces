@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,11 +16,10 @@ class AnnonceType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('price')
-            ->add('isSold')
+            ->add('price', MoneyType::class, [
+                'divisor' => 100
+            ])
             ->add('status')
-            ->add('createdAt')
-            ->add('slug')
         ;
     }
 
