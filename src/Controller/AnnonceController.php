@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +53,31 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/new")
      */
-    public function new()
+    public function new(Request $request, EntityManagerInterface $em)
     {
-        // ne pas oublier use App\Entity\Annonce; en haut du fichier
         $annonce = new Annonce();
+        // on créer un formulaire
+        $form = $this->createForm(
+            AnnonceType::class, // on cherche le type (la classe où on construit le formulaire)
+            $annonce // on met les données de $annonce dans le formulaire
+        );
+
+        // écoute la requête courante
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) { // quand le formulaire est envoyé
+            // $em = $this->getDoctrine()->getManager(); sans l'$annonceRepository
+            $em->persist($annonce);            
+            $em->flush();
+            return $this->redirectToRoute('app_annonce_annoncebyslug', ['slug' => $annonce->getSlug()]);
+        }
+
+        return $this->render('annonce/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+        
+        // ne pas oublier use App\Entity\Annonce; en haut du fichier
+        /*$annonce = new Annonce();
         $title = 'Ma collection de canard en NFT snvdjn';
         $annonce
             ->setTitle($title)
@@ -77,7 +100,7 @@ class AnnonceController extends AbstractController
         // on envoie (en SQL c'est un commit) tous ce qui est persisté en base de données
         $entityManager->flush();
 
-        dump($annonce);
+        dump($annonce);*/
         
         die('nouvelle annonce');
     }
