@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  * @UniqueEntity("slug")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Annonce
 {
@@ -17,6 +20,15 @@ class Annonce
     public const STATUS_GOOD        = 2;
     public const STATUS_VERY_GOOD   = 3;
     public const STATUS_PERFECT     = 4;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist(): void
+    {
+        $this->slug = strtolower((new AsciiSlugger())->slug($this->title));
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     /**
      * @ORM\Id

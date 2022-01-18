@@ -4,12 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Annonce;
 use App\Repository\AnnonceRepository;
-use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class AnnonceController extends AbstractController
 {
@@ -57,17 +55,13 @@ class AnnonceController extends AbstractController
     {
         // ne pas oublier use App\Entity\Annonce; en haut du fichier
         $annonce = new Annonce();
-        $title = 'Ma collection de canard vivant en NFT';
-        $slugger = new AsciiSlugger();
+        $title = 'Ma collection de canard en NFT snvdjn';
         $annonce
             ->setTitle($title)
             ->setDescription('Vends car j\'ai envie de spéculer')
             ->setStatus(Annonce::STATUS_PERFECT)
             ->setPrice(100)
             ->setIsSold(false)
-            // ne pas oublier use DateTimeImmutable ou faire new \DateTimeImmutable()
-            ->setCreatedAt(new DateTimeImmutable())
-            ->setSlug(strtolower($slugger->slug($title)))
         ;
 
         dump($annonce);
@@ -117,12 +111,11 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/{slug<^[a-z0-9]+(?:-[a-z0-9]+)*$>}", methods={"GET"})
      */
-    public function annonceBySlug(string $slug, AnnonceRepository $annonceRepository)
+    public function annonceBySlug(Annonce $annonce)
     {
-        $annonce = $annonceRepository->findOneBy([
-            'slug' => $slug
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce
         ]);
-        dd($annonce);
     }
 
     /**
