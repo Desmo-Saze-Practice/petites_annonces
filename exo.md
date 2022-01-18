@@ -1,3 +1,8 @@
+Dans templates\home\index.html.twig
+Ajouter la route qui redirige vers le détail d'une annonce, avec son slug (et non son id)
+
+<a href="{{ path('nom_de_la_route', {param1: valeur1}) }}">Lien</a>
+
 # Créer des Categories
 - Créer une nouvelle entité Category
     name:string:255:not_null
