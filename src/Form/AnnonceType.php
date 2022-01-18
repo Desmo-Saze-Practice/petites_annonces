@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +18,7 @@ class AnnonceType extends AbstractType
         // le $builder nous permet de construire le formulaire
         $builder
             ->add('title')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('price', MoneyType::class, [
                 'divisor' => 100
             ])
