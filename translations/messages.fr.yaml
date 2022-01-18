@@ -1,2 +1,4 @@
 action:
-  read_more: 'En savoir plus'
+  show: 'Voir'
+  edit: 'Éditer'
+  delete: 'Supprimer'

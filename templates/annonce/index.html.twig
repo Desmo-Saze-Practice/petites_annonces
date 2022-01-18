@@ -24,7 +24,11 @@
                 <td>
                     {{ ('annonce.status_' ~ annonce.status)|trans({}, 'annonce') }}
                 </td>
-                <td>{{ 'action.read_more'|trans }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_annonce_annoncebyslug', {'slug': annonce.slug}) }}">{{ 'action.show'|trans }}</a>
+                    <a class="btn btn-secondary" href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">{{ 'action.edit'|trans }}</a>
+                    {{ include('annonce/_delete_form.html.twig') }}
+                </td>
             </tr>
         {% endfor %}
     </table>

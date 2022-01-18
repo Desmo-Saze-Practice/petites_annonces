@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AnnonceController extends AbstractController
 {
     /**
-     * @Route("/annonce", name="annonce")
+     * @Route("/annonce")
      */
     public function index(AnnonceRepository $annonceRepository): Response
     {
@@ -173,5 +173,19 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/edit.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/annonce/{id<\d+>}", methods={"POST"})
+     */
+    public function delete(Annonce $annonce, EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
+    {
+        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+            $em->remove($annonce);
+            $em->flush();
+            $this->addFlash('danger', $translator->trans('message.deleted', [], 'annonce'));
+        }
+
+        return $this->redirectToRoute('app_annonce_index');
     }
 }
