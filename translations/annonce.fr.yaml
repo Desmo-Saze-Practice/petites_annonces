@@ -6,3 +6,6 @@ annonce:
   status_4: 'Parfait état'
 message:
   created: 'Annonce bien créée'
+button:
+  edit: 'Éditer'
+  create: 'Créer'

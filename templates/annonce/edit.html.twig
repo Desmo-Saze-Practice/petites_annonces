@@ -1,5 +1,5 @@
 {% extends "layout/full_width.html.twig" %}
 
 {% block content %}
-    {{ include('annonce/_form.html.twig') }}
+    {{ include('annonce/_form.html.twig', {button_label: 'button.edit'|trans([], 'annonce')}) }}
 {% endblock %}
