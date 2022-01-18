@@ -4,3 +4,5 @@ annonce:
   status_2: 'Bon état'
   status_3: 'Très bon état'
   status_4: 'Parfait état'
+message:
+  created: 'Annonce bien créée'

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AnnonceController extends AbstractController
 {
@@ -53,7 +54,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/new")
      */
-    public function new(Request $request, EntityManagerInterface $em)
+    public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $annonce = new Annonce();
         // on créer un formulaire
@@ -69,6 +70,9 @@ class AnnonceController extends AbstractController
             // $em = $this->getDoctrine()->getManager(); sans l'$annonceRepository
             $em->persist($annonce);            
             $em->flush();
+
+            $this->addFlash('success', $translator->trans('message.created', [], 'annonce'));
+
             return $this->redirectToRoute('app_annonce_annoncebyslug', ['slug' => $annonce->getSlug()]);
         }
 
@@ -161,7 +165,7 @@ class AnnonceController extends AbstractController
         $form = $this->createForm(AnnonceType::class, $annonce);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted()) {
             $em->flush();
         }
