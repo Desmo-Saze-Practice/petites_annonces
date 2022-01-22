@@ -8,4 +8,4 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-/nodes_modules
+/node_modules

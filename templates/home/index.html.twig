@@ -1,5 +1,8 @@
 {% extends "base.html.twig" %}
 {% block body %}
+    {% block side %}
+        {% include "_layout/sidebar.html" %}    
+    {% endblock %}
     {% include "_inc/nav.html.twig" %}
     {% block content %}
         <h1> Welcome to your own litle shop </h1>
