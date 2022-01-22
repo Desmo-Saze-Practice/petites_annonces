@@ -114,6 +114,9 @@
     "symfony/http-kernel": {
         "version": "v5.4.2"
     },
+    "symfony/intl": {
+        "version": "v5.4.2"
+    },
     "symfony/maker-bundle": {
         "version": "1.36",
         "recipe": {
@@ -193,6 +196,9 @@
     },
     "twig/extra-bundle": {
         "version": "v3.3.7"
+    },
+    "twig/intl-extra": {
+        "version": "v3.3.5"
     },
     "twig/twig": {
         "version": "v3.3.7"
