@@ -1,12 +1,10 @@
-{% extends "base.html.twig" %}
+{% extends "_layout/sidebar.html.twig" %}
 {% block body %}
-    {% block side %}
-        {% include "_layout/sidebar.html" %}    
-    {% endblock %}
     {% include "_inc/nav.html.twig" %}
     {% block content %}
         <h1> Welcome to your own litle shop </h1>
     {% endblock %}
+    
     <h1>{{ title|upper }}</h1>
     <p>{{ date|date('d-m-Y') }}</p>
     <p>{{ dump(date) }}</p>
