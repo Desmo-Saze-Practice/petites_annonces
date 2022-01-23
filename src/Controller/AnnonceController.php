@@ -60,13 +60,16 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonces/{id}", name="annonce_show", requirements={"id": "\d+"})
+     * @Route("/annonces/{id}", requirements={"id": "\d+"})
      * @return Response
      */
-    public function show(Annonce $annonce): Response
+    public function show(int $id, AnnonceRepository $annonceRepository): Response
     {
-        // $annonce = $annonceRepository->find($id);
+        $annonce = $annonceRepository->find($id);
 
+        if(!$annonce) {
+            throw $this->createNotFoundException();
+        }
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
         ]);
