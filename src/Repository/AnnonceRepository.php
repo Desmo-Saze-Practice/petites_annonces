@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Annonce;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
@@ -56,6 +57,20 @@ class AnnonceRepository extends ServiceEntityRepository
         return $this
             ->createQueryBuilder('a')
             ->andWhere('a.sold = false')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Annonce[]
+     */
+    public function findLastNotSold()
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
             ;

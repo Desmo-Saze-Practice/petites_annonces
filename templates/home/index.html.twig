@@ -2,11 +2,24 @@
 {% block body %}
     {% include "_inc/nav.html.twig" %}
     {% block content %}
-        <h1> Welcome to your own litle shop </h1>
+        <h1> Welcome to your own little shop </h1>
+        {% for annonce in lastThreeAnnonces %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm" height="225" width="100%">
+                    <img src="https://ae01.alicdn.com/kf/HTB1ZylmpjnD8KJjSspbq6zbEXXa1.jpg" class="bd-placeholder-img card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ annonce.title }}</h5>
+                        <p class="card-text">{{ annonce.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary" type="button">View</a>
+                                <a class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
+                            </div>
+                            <small class="text-muted">{{ annonce.price }}€</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     {% endblock %}
-    
-    <h1>{{ title|upper }}</h1>
-    <p>{{ date|date('d-m-Y') }}</p>
-    <p>{{ dump(date) }}</p>
-    <p>{{ content }}</p>
 {% endblock %}
