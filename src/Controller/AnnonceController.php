@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class AnnonceController extends AbstractController
 {
@@ -56,5 +57,18 @@ class AnnonceController extends AbstractController
             $em->flush();
 
             die('Annonce créée');
+    }
+
+    /**
+     * @Route("/annonces/{id}", name="annonce_show, requirements={"id": "\d+"})
+     * @return Response
+     */
+    public function show(Annonce $annonce): Response
+    {
+        // $annonce = $annonceRepository->find($id);
+
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce,
+        ]);
     }
 }
