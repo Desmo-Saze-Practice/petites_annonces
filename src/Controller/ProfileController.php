@@ -16,7 +16,7 @@ class ProfileController extends AbstractController
      */
     public function me(): Response
     {
-        return $this->render('profil/index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
         ]);
     }
@@ -26,9 +26,8 @@ class ProfileController extends AbstractController
      */
     public function annonce(): Response
     {
-        die(
-            'trouver et afficher toutes les annonces 
-            de l\'utilisateur qui est connecté'
-        );
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $this->getUser()->getAnnonces()
+        ]);
     }
 }
