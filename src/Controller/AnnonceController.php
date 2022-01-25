@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AnnonceController extends AbstractController
 {
@@ -158,10 +159,16 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce/edit/{id<\d+>}")
+     * @Route("/annonce/{id<\d+>}/edit")
      */
     public function edit(Annonce $annonce, Request $request, EntityManagerInterface $em)
     {
+        // on récupère l'utilisateur connecté
+        $user = $this->getUser();
+        if ($annonce->getUser() !== $user) {
+            $this->addFlash('warning', 'Vous ne pouvez pas accéder à cette ressource');
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createForm(AnnonceType::class, $annonce);
 
         $form->handleRequest($request);
@@ -177,6 +184,7 @@ class AnnonceController extends AbstractController
 
     /**
      * @Route("/annonce/{id<\d+>}", methods={"POST"})
+     * @Security("annonce.getUser() == user")
      */
     public function delete(Annonce $annonce, EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
     {
