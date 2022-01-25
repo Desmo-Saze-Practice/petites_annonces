@@ -57,6 +57,10 @@ class AnnonceController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            $this->addFlash('warning', 'Merci de vous connecter');
+            return $this->redirectToRoute('app_login');
+        }
         $annonce = new Annonce();
         // on créer un formulaire
         $form = $this->createForm(
