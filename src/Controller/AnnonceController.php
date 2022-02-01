@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Tag;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,6 +63,7 @@ class AnnonceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $annonce = new Annonce();
+        $annonce->addTag(new Tag());
         // on créer un formulaire
         $form = $this->createForm(
             AnnonceType::class, // on cherche le type (la classe où on construit le formulaire)
@@ -73,6 +75,7 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) { // quand le formulaire est envoyé et qu'il est valide
             // $em = $this->getDoctrine()->getManager(); sans l'$annonceRepository
+            $annonce->setUser($this->getUser());
             $em->persist($annonce);            
             $em->flush();
 
