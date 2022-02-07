@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Annonce;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -17,11 +18,15 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
         $users = $userRepository->findAll();
         $usersLength = count($users)-1; //potentiellement 100 // mais ça va de 0 à 99
 
+        $tagRepository = $manager->getRepository(Tag::class);
+        $tags = $tagRepository->findAll();
+        $tagLength = count($tags)-1;
+
         $faker = Faker::create('fr_FR');
 
         for ($i=0; $i < 500; $i++) { 
-            $randomKey = rand(0, $usersLength); //100
-            $user = $users[$randomKey]; // on ne peut pas accéder à l'index 100
+            $user = $users[rand(0, $usersLength)]; // on ne peut pas accéder à l'index 100
+            $tag = $tags[rand(0, $tagLength)];
             $annonce = new Annonce();
             $annonce
                 ->setTitle($faker->word().$i)
@@ -35,6 +40,7 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
                 ]))
                 ->setPrice($faker->randomNumber())
                 ->setUser($user)
+                ->addTag($tag)
             ;
 
             $manager->persist($annonce);
@@ -49,7 +55,8 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixtures::class
+            UserFixtures::class,
+            TagFixtures::class
         ];
     }
 }
