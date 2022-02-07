@@ -20,6 +20,13 @@
 						<a class="nav-link" href={{ path('app_register') }}>Créer un compte</a>
 					{% endif %}
 				</li>
+				<li>
+					<select name="menu_tags" id="">
+						{% for tag in global_tags %}
+							<option value="{{ tag.id }}">{{ tag.name }}</option>
+						{% endfor %}
+					</select>
+				</li>
 			</ul>
 		</div>
 	</div>
