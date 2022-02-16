@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
@@ -48,6 +49,7 @@ class Annonce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"annonce"})
      */
     private $id;
 
@@ -55,6 +57,7 @@ class Annonce
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(min=4, max=255)
+     * @Groups({"annonce"})
      */
     private $title;
 
@@ -62,6 +65,7 @@ class Annonce
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min=10, max=2000)
+     * @Groups({"annonce"})
      */
     private $description;
 
@@ -69,12 +73,14 @@ class Annonce
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
+     * @Groups({"annonce"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\Type("boolean")
+     * @Groups({"annonce"})
      */
     private $isSold;
 
@@ -82,27 +88,32 @@ class Annonce
      * @ORM\Column(type="integer")
      * @Assert\Type("integer")
      * @Assert\LessThan(5)
+     * @Groups({"annonce"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"annonce"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @Groups({"annonce"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"annonce"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"user"})
      */
     private $user;
 
@@ -110,6 +121,11 @@ class Annonce
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="annonces", cascade={"persist"})
      */
     private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="annonce", cascade={"persist"})
+     */
+    private $address;
 
     public function __construct()
     {
@@ -254,6 +270,18 @@ class Annonce
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

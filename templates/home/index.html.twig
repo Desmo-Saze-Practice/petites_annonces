@@ -12,4 +12,23 @@
             </div>
         {% endfor %}
     </div>
+    <div id="map" style="height:500px"></div>
+    <div>
+        <button id="geoValue" type="button">Votre position</button>
+        <input type="text" id="localizeByAddress">
+        <ul id="localizeByAddressResult"></ul>
+
+    </div>
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('mapAnnonce') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('mapAnnonce') }}
 {% endblock %}

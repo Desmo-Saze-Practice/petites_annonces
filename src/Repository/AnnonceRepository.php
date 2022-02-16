@@ -31,15 +31,13 @@ class AnnonceRepository extends ServiceEntityRepository
         if (isset($params['betterThan'])) {
             $qb
                 ->andWhere('a.status >= :status')
-                ->setParameter('status', $params['betterThan'])
-            ;
+                ->setParameter('status', $params['betterThan']);
         }
 
         if (isset($params['newerThan'])) {
             $qb
                 ->andWhere('a.createdAt >= :createdAt')
-                ->setParameter('createdAt', $params['newerThan'])
-            ;
+                ->setParameter('createdAt', $params['newerThan']);
         }
 
         $qb->addOrderBy('a.createdAt', 'DESC');

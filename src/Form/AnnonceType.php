@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use App\Form\AdressType;
 class AnnonceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -40,6 +40,7 @@ class AnnonceType extends AbstractType
                 'by_reference' => false,
                 'allow_delete' => true,
             ])
+            ->add('address', AddressAutoCompleteType::class)
         ;
     }
 

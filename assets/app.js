@@ -13,3 +13,7 @@ import './bootstrap';
 
 // add Bootstrap JS
 import 'bootstrap';
+
+// self explainatory innit ?
+import './js/searchAnnonceByTag';
+import './js/addAddressFormClass';
